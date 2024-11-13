@@ -1,0 +1,4 @@
+org\example\demo2\model\Client.class
+org\example\demo2\model\DatingTable.class
+org\example\demo2\dao\ClientDao.class
+org\example\demo2\beans\ClientBean.class

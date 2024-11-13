@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<f:view>
+    <h:head>
+        <title>Client Dates</title>
+        <link rel="stylesheet" type="text/css" href="style/style.css"/>
+    </h:head>
+    <h:body>
+        <h1>Dates for Client #{clientBean.client.name} #{clientBean.client.surname}</h1>
+
+        <h:dataTable value="#{clientBean.client.dates}" var="date">
+            <h:column>
+                <f:facet name="header">Date ID</f:facet>
+                #{date.id}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Client 1</f:facet>
+                #{date.clientOne} (ID: #{date.userOneId})
+            </h:column>
+            <h:column>
+                <f:facet name="header">Client 2</f:facet>
+                #{date.clientTwo} (ID: #{date.userTwoId})
+            </h:column>
+            <h:column>
+                <f:facet name="header">Date</f:facet>
+                #{date.date}
+            </h:column>
+            <h:column>
+                <h:form>
+                    <f:facet name="header">X</f:facet>
+                    <h:commandButton value="delete" action="#{clientBean.deleteDate(date.id)}"/>
+                </h:form>
+            </h:column>
+        </h:dataTable>
+        <h:form class="add-date-form">
+            <h:outputLabel value="Select Client 2:" for="client2" />
+            <h:selectOneMenu value="#{clientBean.selectedClientId}" id="client2">
+                <f:selectItems value="#{clientBean.availableClients}" var="c" itemValue="#{c.id}" itemLabel="#{c.name} #{c.surname}" />
+            </h:selectOneMenu>
+
+            <h:outputLabel value="Select Date:" for="date" />
+            <h:inputText value="#{clientBean.newDate}" id="date">
+                <f:convertDateTime pattern="yyyy-MM-dd" />
+            </h:inputText>
+
+            <h:commandButton value="Add Date" action="#{clientBean.addDate}" styleClass="add-button" />
+        </h:form>
+        <h:form>
+            <h:commandButton value="Back to Clients" action="index"/>
+        </h:form>
+    </h:body>
+</f:view>
+</html>
